@@ -5,7 +5,7 @@
 `uname -r` 内核版本/架构
 `cat /etc/redhat-release` 发行版(redhat)
 `cat /etc/issue` ubuntu版本号
-`sudo lsb_release -a` ubuntu版本号（详细） 
+`sudo lsb_release -a` ubuntu版本号（详细）
 `su` //切换到root用户 使用exit或Ctrl+D返回普通用户(`sudo su`可以无密码切换到`root`)
 `df` //磁盘状态
 `set/export key=value` 设置环境变量，分别对当前shell和当前会话有效
@@ -23,7 +23,7 @@
 `timedatectl set-time hh:mm:ss` 设置时间
 `timedatectl set-ntp yes/no` 开关NTP服务器 需安装ntp包，并开启ntpd服务
 `timedatectl list-timezones` 查看所有的时区
-`timedatectl set-timezone Asia/Shanghai` 设置时区 
+`timedatectl set-timezone Asia/Shanghai` 设置时区
 修改时区*Ubuntu好用*  `sudo cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime`
 `awk '{print $4}' file` 处理文本通用工具，`'{命令 模式}'`是通用的参数形式
 `last -x|grep reboot` 自从上次重启后运行时间
@@ -36,7 +36,7 @@
 `journalctl -f` 实时输出日志，在ubuntu中等价于`tail -f /var/log/syslog.log`
 `source` 执行刚安装的脚本使其立刻生效而不用等重启后
 `xargs` 接收一个命令的输出并传递给另一个命令
-`eval` 一个用法：`eval command -options $var1 $var2` 先对后面跟的命令语句执行变量解析替换，然后再运行后面的命令 
+`eval` 一个用法：`eval command -options $var1 $var2` 先对后面跟的命令语句执行变量解析替换，然后再运行后面的命令
 `pv` 显示命令进度（Pipe Viewer），常用于命令管道中（需要安装，如`sudo apt-get install pv`） eg:`pv /media/xxx.mkv > ~/yyy.mkv` 显示拷贝文件进度
 `( command )` 括号可以强制其中的命令在子Shell中执行。
 
@@ -51,21 +51,21 @@
 `chgrp -R root filename` 更改文件所属组
 `chown (-R -V) user filename` 更改文件所有者
 `sudo passwd username` 修改密码
-`id (-a) username` 查看账号信息 
+`id (-a) username` 查看账号信息
 `cat /etc/group` 文件包含所有组
 `cat /etc/shadow` 和 `/etc/passwd` 系统存在的所有用户名
 `groups` 当前用户所在组
 `groups username` 查看username所在组及组内成员
 `whoami` 当前用户
 `who` 当前登录用户详细
-`useradd -g groupname username` 和 `groupadd groupname` 用来删除用户或用户组 `-d` 指定主目录 `-m` 自动创建主目录 `-s` 指定使用的bash 
+`useradd -g groupname username` 和 `groupadd groupname` 用来删除用户或用户组 `-d` 指定主目录 `-m` 自动创建主目录 `-s` 指定使用的bash
 `userdel` 和 `groupdel` 用来删除用户或用户组
 `sudo adduser <username> sudo` 将用户添加到sudo组 （其它方式：`sudo usermod -a -G sudo <username>`）**注意** Ubuntu中组名为`sudo`，CentOS中组名为`wheel`
 `usermod -d /usr/newfolder -u uid LOGIN` 指定用户主目录 uid通过`id`命令来获取
 `passwd username` 设置用户密码
 `sudo chsh -s /bin/bash hadoop` 修改用户的bash，需要sudo，或者直接编辑`/etc/passwd`，最后一列表示登陆的shell
 `umask` 权限掩码，如使用`umask 077`修改后，则当前shell创建的文件的权限都是`700`
- 
+
 ### 文件相关 ###
 
 `ls -l dest_dir` //列目录+详细信息 `-lsa` 显示隐藏文件
@@ -75,7 +75,7 @@
 `basename` 取路径中的文件名（就是最后一个`/`之后的部分），常用法 basenam \`pwd\`
 `cd ..` 上一级 ~用户主目录 /系统根目录
 `wget` 文件名 url 下载文件并重命名
-`tar xzf redis-3.2.3.tar.gz` 压缩解压 `-x/c/t` 解压/压缩/列出文件 `-z` 压缩文件同时有gzip压缩(文件名如.tar.gz) `-v` 显示正在处理的文件 `-f` 后面接档案名(要创建或要解压的名字)，一般作为最后一个命令选项 
+`tar xzf file.tar.gz` 压缩解压 `-x/c/t` 解压/压缩/列出文件 `-z` 压缩文件同时有gzip压缩(文件名如.tar.gz) `-v` 显示正在处理的文件 `-f` 后面接档案名(要创建或要解压的名字)，一般作为最后一个命令选项
 `mv oldname newname` 移动文件/重命名
 `whereis mysql` 定位文件
 `./file-name` 执行一个文件
@@ -134,7 +134,7 @@
 
 其它编辑器
 `nano` 控制Ctrl+(Centos等)
- 
+
 ## 安装/卸载程序 ##
 
 ### apt-get 系 ###
@@ -152,7 +152,7 @@
 `dpkg -s package` 已安装的包的详细信息
 `dpkg -l` 列出所有的包
 `dpkg -listfiles package` 列出包所包含的文件
-`apt` 与`apt-get`有细微不同 
+`apt` 与`apt-get`有细微不同
 基于apt-get的tasksel（用于一系列apt-get安装）
 `tasksel install lamp-server` #使用tasksel安装LAMP套件
 `tasksel remove lamp-server` #使用tasksel卸载LAMP套件
@@ -168,17 +168,17 @@
 `yum install net-tools` #安装
 `-y` 所有提示，一律是
 `yum info package` 查看包信息
-`yum list (package)` 列出所有包，或指定包的安装情况 
+`yum list (package)` 列出所有包，或指定包的安装情况
 `yum -y install /path/to/package.rpm` 安装指定的rpm包
 `yum -y localinstall /path/to/package.rpm` 与上面命令等价
 `yum repolist enabled` 列出启用的repository
 **使用yum-config-manager管理yum repository**
 `yum install yum-config-manager` 安装yum-config-manager
 `sudo yum-config-manager --disable/-enable repo-name` 启用或禁用包源
- 
+
 ## 网络相关 ##
 
-`sudo netstat -nlp |grep 1723/LISTEN` 查看端口号(root权限) 
+`sudo netstat -nlp |grep 1723/LISTEN` 查看端口号(root权限)
 `netstat -rn` 核心路由表
 netstat 替代品 ss
 `ss -l` 列出所有监听端口
@@ -206,10 +206,10 @@ netstat 替代品 ss
 `firewall-cmd --zone=public --add-port=80/tcp --permanent` 开放80端口，重启服务即时生效，且效果持久，不用改文件
 `firewall-cmd --reload` 上面的命令不重启实时生效
 `firewall-cmd --get-active-zones` 查看活动区域
- 
+
 #### net-tools工具集 ####
 `ifconfig |egrep "HWaddr|inet addr"` 所有网卡的摘要
- 
+
 #### ip工具集 ####
 `ip addr` #ifconfig 在RHEL7以后不默认安装了
 `ip (-s) link` #网络接口(-s统计信息)
@@ -221,7 +221,7 @@ netstat 替代品 ss
 `systemctl restart network.service` 需重启网络服务--rhel7
 
 `route |grep default` 默认路由
- 
+
 `sudo vi /etc/network/interfaces`
  //sudo vi /etc/resolv.conf
 `sudo service networking restart`
@@ -230,7 +230,7 @@ netstat 替代品 ss
 `sudo ifconfig eth0 up`
 
 ### SSH ###
-`apt-get install openssh-server` 
+`apt-get install openssh-server`
 由pem格式文件导出pub格式文件  
 `chmod 600 xxx.pem` 修改其权限为600（不然第三步会报错）
 `ssh-keygen -p -f xxx.pem` 改写密钥格式为OpenSSH，（如果询问passphrase可以直接回车）  
@@ -244,7 +244,6 @@ netstat 替代品 ss
   `-D` 不以daemon模式运行sshd，即不从控制台detach sshd进程，可以更好的查看`sshd`的工作情况
 
 
- 
 ## 进程/服务 ##
 
 `ps -ef | grep lxdm` 查看进程，常用参数：
@@ -265,7 +264,7 @@ netstat 替代品 ss
 `pmap` 查看进程的内存映像信息 如：`pmap -d pid`
 `sudo chkconfig mysql on` 开机自动运行(旧版Ubuntu)
 `upstart` 开机自动运行(新版Ubuntu) 需要安装 `sudo apt-get install upstart`
-`sleep` 休眠等待，参数单位为s 
+`sleep` 休眠等待，参数单位为s
 
 ## 定时任务 ##
 
@@ -274,15 +273,7 @@ netstat 替代品 ss
 `crontab -l` 列出定时任务，日志可见于`/var/log/cron`
 `min hour day month week username cmd` cron计划顺序，`*` 表示全部 `*/min` 表示每分钟 `min1-min2` 时间区段 `min1,min2`第1和2分钟
 `/etc/init.d/cron restart/reload/start/stop` 重启/重新加载配置/启动/停止
- 
-## Git相关 ##
 
-`cat /tmp/id_rsa.office.pub >> /home/git/.ssh/authorized_keys` //添加客户端公钥
-`sudo git init --bare testrepo.git` //初始化一个库
-`sudo chown -R git:git testrepo.git` //更改文件所有者
-`ssh-keygen -t rsa -C "your_email@example.com"` //git-bash 生成密钥对
-`git clone git@git.hystar.wang:repos/codedesktop.git`  
- 
 ## 开发 ##
 
 `usr/local` 应用程序安装目录
@@ -297,4 +288,4 @@ Nginx
 
 ### 差异 ###
 
-ubuntu nginx配置文件 位置 /etc/nginx/sites-enabled/default 
+ubuntu nginx配置文件 位置 /etc/nginx/sites-enabled/default
