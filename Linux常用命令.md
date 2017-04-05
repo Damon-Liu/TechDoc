@@ -288,7 +288,7 @@ netstat 替代品 ss
 ## 应用 ##
 
 `curl http://xxx`  
-Nginx
+Nginx  
 `sudo apt-get install nginx` //安装 &启动  
 `sudo /etc/init.d/nginx start`  
 
