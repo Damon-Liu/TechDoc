@@ -77,6 +77,25 @@ sudo yum-config-manager \
 
 注意，手动编译过的配置文件需要手动删除  
 
+### 安装Docker-PowerShell ###
+
+Docker-PowerShell是一个功能类似于Docker CLI的命令行工具。主页[在此](https://github.com/Microsoft/Docker-PowerShell)，其中也有安装说明。这里列出快速安装的几条命令：
+
+安装：
+
+```
+Register-PSRepository -Name DockerPS-Dev -SourceLocation https://ci.appveyor.com/nuget/docker-powershell-dev
+Install-Module -Name Docker -Repository DockerPS-Dev -Scope CurrentUser
+```
+
+更新：
+
+    Update-Module -Name Docker
+
+查看Docker-PowerShell支持的命令：
+
+    Get-Command -Module Docker
+
 ## Docker Compose ##  
 
 ### 使用curl安装Docker Compose ###  
