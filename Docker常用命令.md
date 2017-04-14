@@ -27,20 +27,21 @@
  - `--link` 链接到容器，可以指定别名 `--link other-container:alias` other-container及alias可以在当前容器中作为hostname使用  
  - `-d` 在后台运行container，即detach启动container的shell，与下面的`-it`相对  
  - `-it` `-i`与`-t`的结合，这两个项常一起用，`-t`表示分配一个tty终端，`-i`保持container接收STDIN状态。结合在一起即以交互式方式运行container  
- - ` -v /home/jymf/labelraw:/publish:ro microsoft/dotnet:1.0.3-runtime /bin/bash` 挂载本地目录（左）到container（右），`:ro`表示只读挂载  
+ - ` -v /home/orgname/projname:/publish:ro microsoft/dotnet:1.0.3-runtime /bin/bash` 挂载本地目录（左）到container（右），`:ro`表示只读挂载  
  - `--restart=always image-name` 指定运行策略，退出后是否重启等，所有选项：`no(default) | on-failure | unless-stopped | always`  
  - `--privileged` 以特权模式运行，container可以访问主机的设备，在这种模式下，container中可以嵌套运行container  
  - `-h/--hostname` 指定container的主机名  
+ - `-e "key:value"` 配置environment
 
-`docker create --name jymfythapi jymfythapp:1.0` 基于镜像创建容器  
+`docker create --name imagename containername:1.0` 基于镜像创建容器  
 `docker inspect --format='{{.State.Status}}' web31` 查看容器状态  
-`docker pause jymfythapi` 暂停容器  
-`docker unpause jymfythapi` 恢复容器  
+`docker pause container` 暂停容器  
+`docker unpause container` 恢复容器  
 `docker rename cont1 cont2` #重命名容器  
 `docker top cont1` 显示容器运行的进程  
 `docker logs cont1` 显示容器的日志  
 `docker kill cont1` 强制结束容器  
-`docker cp /home/hystar/publish/Dockerfile cname:/webapp` #从 host 拷贝文件到 container 里面，也可以反向copy  
+`docker cp /home/user/publish/Dockerfile cname:/webapp` #从 host 拷贝文件到 container 里面，也可以反向copy  
 `docker import cnamezip cimage -m "imported on 0916"` 从压缩文件创建一个镜像  
 `docker exec -it containerid/name /bin/bash`   exec用于在容器中执行一个命令，如上命令的作用就是进入容器并打开bash（`-it`等效`-i -t`）  
 `docker attach containerid/name` 附加到一个运行中的container，和上面的命令差不多，只是上面的命令是新打开一个bash  
