@@ -5,8 +5,8 @@
 `uname -r` 内核版本/架构  
 `cat /etc/redhat-release` 发行版(redhat)  
 `cat /etc/issue` ubuntu版本号  
-`sudo lsb_release -a` ubuntu版本号（详细）  
-`su` //切换到root用户 使用exit或Ctrl+D返回普通用户(`sudo su`可以无密码切换到`root`)  
+`lsb_release -a` ubuntu版本号（详细）  
+`su` //切换到root用户 使用exit或Ctrl+D返回普通用户(`sudo su`可以无密码切换到`root`) `su -`切换到root并使用root的环境  
 `df` //磁盘状态  
 `set/export key=value` 设置环境变量，分别对当前shell和当前会话有效  
 `vi /etc/profile` 或 `vi /root/.bashr` 加入 `export PATH=VALUE` 在重启会每次会话都有效  
@@ -59,7 +59,9 @@
 `who` 当前登录用户详细  
 `useradd -g groupname username` 和 `groupadd groupname` 用来删除用户或用户组 `-d` 指定主目录 `-m` 自动创建主目录 `-s` 指定使用的bash  
 `userdel` 和 `groupdel` 用来删除用户或用户组  
-`sudo adduser <username> sudo` 将用户添加到sudo组 （其它方式：`sudo usermod -a -G sudo <username>`）**注意** Ubuntu中组名为`sudo`，CentOS中组名为`wheel`  
+`sudo adduser <username> sudo` 将用户添加到sudo组 （其它方式：`sudo usermod -a -G sudo <username>`）**注意** Ubuntu中组名为`sudo`，CentOS中组名为`wheel`
+`cat /etc/sudoers` 查看sudo用户
+`sudo visudo` 修改`/etc/sudoers`文件，如实现无密码sudo：`user1 ALL=(ALL) NOPASSWD: ALL` 添加此行到文件最后（如果只是sudo个别命令时不需要输密码，将命令的路径添加在`NOPASSWD:`后）  
 `usermod -d /usr/newfolder -u uid LOGIN` 指定用户主目录 uid通过`id`命令来获取  
 `passwd username` 设置用户密码  
 `sudo chsh -s /bin/bash hadoop` 修改用户的bash，需要sudo，或者直接编辑`/etc/passwd`，最后一列表示登陆的shell  
@@ -177,6 +179,8 @@
 
 ## 网络相关 ##
 
+`host` DNS查询，类似Win上的`nslookup`  
+`traceroute` 路由跳跃点，需要安装同名的包
 `sudo netstat -nlp |grep 1723/LISTEN` 查看端口号(root权限)  
 `netstat -rn` 核心路由表  
 netstat 替代品 ss  
@@ -221,7 +225,7 @@ netstat 替代品 ss
 
 `route |grep default` 默认路由  
 
-`sudo vi /etc/network/interfaces`  
+`sudo nano /etc/network/interfaces`  
  //sudo vi /etc/resolv.conf  
 `sudo service networking restart`  
 `sudo /etc/init.d/networking restart`  
@@ -232,7 +236,7 @@ netstat 替代品 ss
 
 `sudo nano /etc/hostname` 修改包含主机名的文件(Ubuntu)  
 `sudo nano /etc/hosts` 修改hosts文件，映射最新的主机名(Ubuntu)  
-`sudo vi /etc/sysconfig/network` 修改包含主机名的文件（其中的HOSTNAME一行）(CentOS)  
+`sudo nano /etc/sysconfig/network` 修改包含主机名的文件（其中的HOSTNAME一行）(CentOS)  
 `sudo nano /etc/hosts` 修改hosts文件，映射最新的主机名(CentOS)  
 
 ### SSH ###  
@@ -241,7 +245,11 @@ netstat 替代品 ss
 `chmod 600 xxx.pem` 修改其权限为600（不然第三步会报错）  
 `ssh-keygen -p -f xxx.pem` 改写密钥格式为OpenSSH，（如果询问passphrase可以直接回车）  
 `ssh-keygen -e -f xxx.pem > xxx.pem.pub` 生成公钥.pub文件  
-`ssh ipaddress/host` ssh客户端登陆 `-p port`指定服务器端口 `-l user` 制定用户，效果等同`ssh user@host` `-t` 虚拟一个远程服务器的终端(打开一个tty终端)  
+`ssh ipaddress/host` ssh客户端登陆  
+ `-p port`指定服务器端口  
+ `-l user` 指定用户，效果等同`ssh user@host`  
+ `-t` 虚拟一个远程服务器的终端(打开一个tty终端)  
+ `-i` 使用私钥登录
 `ssh user@host "command" cmdParam1 cmdParam1` 可以直接运行远程命令，一般都需要预先配置无密码(publickey验证)登陆远程服务器  
 
 > command如果是脚本，要写完整的绝对路径
@@ -262,10 +270,10 @@ netstat 替代品 ss
 `update-rc.d -f bitnami-drupal start 80 2 3 4 5 . stop 30 0 1 6 .`  
 `sudo /etc/init.d/servicename restart` //Ubuntu服务控制  
 `service xxx start/stop/restart` //开始/停止/重启(Ubuntu)  
-`service --status-all` //所有服务状态(Ubuntu)  
+`service --status-all` 所有服务状态(Ubuntu)  
 `systemctl restart/status/enable/is-enabled` 重启服务/服务状态/开机自启动/是否自启动(CentOS)  
-`nohup exe  &` //程序在后台保持运行1  
-`setsid exe` //程序在后台保持运行2  
+`nohup exe  &` 程序在后台保持运行1  
+`setsid exe` 程序在后台保持运行2  
 `top` 进程管理器 `q`键退出 `M`键按内存排序(注意大写，如果事小写模式，需要按`shift+M`)  `P`按进程占用 `-p pid` - 指定线程信息 `-u user` - 指定用户的进程  
 `pmap` 查看进程的内存映像信息 如：`pmap -d pid`  
 `sudo chkconfig mysql on` 开机自动运行(旧版Ubuntu)  
@@ -288,9 +296,21 @@ netstat 替代品 ss
 ## 应用 ##
 
 `curl http://xxx`  
+ `-o filename.ext` 使用指定名称保存  
+ `-O` 使用默认名称保存
+ `-C` 使用断点续传，方便下载大文件
 Nginx  
-`sudo apt-get install nginx` //安装 &启动  
+`sudo apt-get install nginx` 安装 &启动  
 `sudo /etc/init.d/nginx start`  
+
+Screen 保存bash会话环境  
+`sudo apt-get install screen` 安装  
+`screen -S sessionName` 创建一个Screen会话，离开时按`Ctrl+A+D`保存会话  
+`screen -ls` 列出所有会话  
+`screen -r sessionName` 恢复Screen会话  
+`screen -x sessionName` 以只读方式连接到一个会话
+
+> 输入`exit`退出scream会话，会提示[screen is terminating]
 
 ### 差异 ###
 

@@ -27,7 +27,7 @@
  - `--link` 链接到容器，可以指定别名 `--link other-container:alias` other-container及alias可以在当前容器中作为hostname使用  
  - `-d` 在后台运行container，即detach启动container的shell，与下面的`-it`相对  
  - `-it` `-i`与`-t`的结合，这两个项常一起用，`-t`表示分配一个tty终端，`-i`保持container接收STDIN状态。结合在一起即以交互式方式运行container  
- - ` -v /home/orgname/projname:/publish:ro microsoft/dotnet:1.0.3-runtime /bin/bash` 挂载本地目录（左）到container（右），`:ro`表示只读挂载  
+ - ` -v /home/orgname/projname:/publish:ro microsoft/dotnet:1.0.3-runtime /bin/bash` 挂载本地目录（左）到container（右），`:ro`表示只读挂载（挂在会自动创建卷）  
  - `--restart=always image-name` 指定运行策略，退出后是否重启等，所有选项：`no(default) | on-failure | unless-stopped | always`  
  - `--privileged` 以特权模式运行，container可以访问主机的设备，在这种模式下，container中可以嵌套运行container  
  - `-h/--hostname` 指定container的主机名  
@@ -107,4 +107,5 @@
 
 ### 存储 ###  
 
-`docker volume create`  
+`docker volume create` 创建卷
+`docker volume ls` 创建卷

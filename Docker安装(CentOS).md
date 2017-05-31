@@ -22,9 +22,7 @@
 添加**稳定**库  
 
 ```bash  
-sudo yum-config-manager \  
-    --add-repo \  
-    https://download.docker.com/linux/centos/docker-ce.repo  
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  
 ```  
 
 > ce表示Community Edition  
@@ -72,7 +70,7 @@ sudo yum-config-manager \
 
 ### 卸载 ###  
 
-    sudo yum -y remove docker-engine  
+    sudo yum -y remove docker-ce
     sudo rm -rf /var/lib/docker //手动删除所有的image，container  
 
 注意，手动编译过的配置文件需要手动删除  

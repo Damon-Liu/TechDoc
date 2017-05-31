@@ -16,7 +16,7 @@
 | services/*service*/ports | Sequence |  | 开放端口(对外暴露端口:内部暴露端口) |  | docker run -p |  
 | services/*service*/expose | Sequence |  |  | 容器间访问的端口，不提供外部访问 | docker run --expose |  
 | services/*service*/links | Sequence | 服务名(:别名，可选) | 用于连接到其它服务 |  | docker run --link |  
-| services/*service*/volumes | Sequence | 主机目录(:容器目录:ro/rw) | 挂载主机目录到容器 |  | docker run -v |  
+| services/*service*/volumes | Sequence | 主机卷(:容器目录:ro/rw) | 挂载主机卷到容器 |  | docker run -v |  
 | services/*service*/volumes_from | Sequence | 服务名:ro/rw 或 container:容器名:ro/rw  | 将服务/容器作为挂载 |  |  
 | services/*service*/environment | Mapping 或 Sequence |  | 添加环境变量 |  | docker run -e |  
 | services/*service*/env_file | Sequence |  | 环境变量文件，作用同environment |  |  |  
@@ -26,6 +26,7 @@
 | services/*servcie*/deploy |  |  | version3新增 |  |  
 | services/*servcie*/deploy/restart_policy |  |  | 配置重启策略 |  |  
 | services/*servcie*/deploy/restart_policy/condition | Scalar |  | 指定什么情况下重启 | docker run --restart *xxx* |  
+| volumes/*service*/ |  |  | 声明使用volumes的服务 |  | 
 
 > `services/*service*/image`与`services/*service*/build`同时出现时，会将image结点的值作为name给build生成的image。  
 
