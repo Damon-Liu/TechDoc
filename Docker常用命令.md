@@ -7,16 +7,22 @@
 ### 镜像相关 ###  
 
 `docker iamges` 列出所有镜像 (-a 显示全部镜像，包含一些中间镜像)  
-`docker rmi imagename` 删除镜像  
+`docker rmi imagename` 删除镜像，如果这个镜像有多个tag，只有多个tag都被删除后镜像本身才被删除  
 `docker pull microsoft/dotnet` 拉取预建的镜像  
 `docker pull microsoft/dotnet:1.0.0-core` 拉取指定版本（:tag）  
-`docker history imagename` 查看镜像历史    
-`docker build path` 编译镜像 `--rm`移除中间镜像 `-t|--tag` 指定标签(imagen-name:tag) `-f` 指定Dockerfile的路径及文件名  
+`docker history imagename` 查看镜像构建过程    
+`docker build path` 编译镜像  
+ `--rm`移除中间镜像  
+ `-t|--tag` 指定标签(imagen-name:tag)  
+ `-f` 指定Dockerfile的路径及文件名  
+ `--no-cache` 构建镜像时不适用缓存
+`docker search imagename` 在Docker Hub中查找镜像
 
 ### 容器相关 ###  
 
 `docker ps` 列出运行中的container  
-`docker ps -a` 所有container 包括没有运行的  
+`docker ps -a` 所有container 包括没有运行的
+`docker container ls [-a]` 作用同上    
 `docker start cname` 运行container  
 `docker stop cname` 停止container  
 `docker rm cname` 移除container `-f` 强制删除，包括正在运行的  
@@ -39,12 +45,12 @@
 `docker unpause container` 恢复容器  
 `docker rename cont1 cont2` #重命名容器  
 `docker top cont1` 显示容器运行的进程  
-`docker logs cont1` 显示容器的日志  
+`docker logs [-f] containername` 显示容器的日志  
 `docker kill cont1` 强制结束容器  
 `docker cp /home/user/publish/Dockerfile cname:/webapp` #从 host 拷贝文件到 container 里面，也可以反向copy  
 `docker import cnamezip cimage -m "imported on 0916"` 从压缩文件创建一个镜像  
 `docker exec -it containerid/name /bin/bash`   exec用于在容器中执行一个命令，如上命令的作用就是进入容器并打开bash（`-it`等效`-i -t`）  
-`docker attach containerid/name` 附加到一个运行中的container，和上面的命令差不多，只是上面的命令是新打开一个bash  
+`docker attach containerid/name` 附加到一个运行中的container，和上面的命令差不多，只是上面的命令是新打开一个bash，使用`Ctrl+p`与`Ctrl+q`退出  
 `docker update --restart=always containerid/name` 更新容器的运行策略  
 
 ### 批量操作 ###  
